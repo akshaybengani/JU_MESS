@@ -1,0 +1,107 @@
+{
+  "project_info": {
+    "project_number": "449145325609",
+    "firebase_url": "https://ju-mess.firebaseio.com",
+    "project_id": "ju-mess",
+    "storage_bucket": "ju-mess.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449145325609:android:95b7d054a3372e8b",
+        "android_client_info": {
+          "package_name": "com.jecrc_university.ju_mess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449145325609-g3ml77kddbd4prf8r2ne8pem2cs8oce6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jecrc_university.ju_mess",
+            "certificate_hash": "f8093cf4c90d01afe20fbfd62dd21a36508d34f4"
+          }
+        },
+        {
+          "client_id": "449145325609-8vg80552i0dev9p34mnppchcbn8ie5e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jecrc_university.ju_mess",
+            "certificate_hash": "746d72f9f1730dcbd21b0625caabda4e1e77ae26"
+          }
+        },
+        {
+          "client_id": "449145325609-pktfpjksuume55h7dcbv7cp9q2enl2e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXg3OdMHJcgT17WfL7J0fkR2dmL-YNpvA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449145325609-pktfpjksuume55h7dcbv7cp9q2enl2e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449145325609:android:adccb4bc6dc49457",
+        "android_client_info": {
+          "package_name": "com.jecrc_university.jumessmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449145325609-vbolejd8pjnlgej8u8um0k4ecfo864to.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jecrc_university.jumessmanagement",
+            "certificate_hash": "f8093cf4c90d01afe20fbfd62dd21a36508d34f4"
+          }
+        },
+        {
+          "client_id": "449145325609-pktfpjksuume55h7dcbv7cp9q2enl2e7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXg3OdMHJcgT17WfL7J0fkR2dmL-YNpvA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449145325609-pktfpjksuume55h7dcbv7cp9q2enl2e7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

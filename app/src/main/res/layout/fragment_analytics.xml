@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AnalyticsFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#a9ffac"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select Date"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:layout_marginRight="20dp"
+                    android:textSize="25dp"
+                    />
+
+                <Button
+                    android:id="@+id/buttonDatePickerAnalytics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE"
+                    android:textSize="20dp"
+                    android:background="@android:color/transparent"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#b2e4de"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:text="Breakfast"
+                    android:textSize="25dp"
+
+                    />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart1"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#e4deb2"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:text="Lunch"
+                    android:textSize="25dp"
+
+                    />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart2"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#dab2e4"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:text="Snacks"
+                    android:textSize="25dp"
+
+                    />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart3"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="#b6e4b2"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:text="Dinner"
+                    android:textSize="25dp"
+
+                    />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/bar_chart4"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+</ScrollView>
