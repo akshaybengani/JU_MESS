@@ -23,10 +23,9 @@
         <activity android:name=".FoodMenu" />
         <activity
             android:name=".FoodMenuFeedback"
-            android:windowSoftInputMode="stateHidden"
-            >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignUpUserInfo"></activity>
     </application>
 
 </manifest>

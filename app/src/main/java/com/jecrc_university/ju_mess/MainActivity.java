@@ -1,11 +1,16 @@
 package com.jecrc_university.ju_mess;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,4 +80,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser==null)
+        {
+            Toast.makeText(MainActivity.this,"Session Expired please login again",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this,LogInActivity.class);
+            startActivity(intent);
+        }
+
+    }
 }

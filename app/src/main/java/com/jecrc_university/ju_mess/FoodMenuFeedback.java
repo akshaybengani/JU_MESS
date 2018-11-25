@@ -15,8 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +37,7 @@ public class FoodMenuFeedback extends AppCompatActivity {
     // RecyclerView recyclerView;
     // DishAdapter adapter;
     List<Dish> dishList;
-    List<DishRating> dishRatingList;
+    //List<DishRating> dishRatingList;
     ImageView imageViewDishImage;
     TextView textViewDishName;
     String name, imageURl;
@@ -46,6 +49,11 @@ public class FoodMenuFeedback extends AppCompatActivity {
     String CurDate, MealTime;
     int size ;
     int counter = 0;
+    ScrollView scrollViewFeedback;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+
     ProgressDialog progressDialog;
 
     @Override
@@ -53,8 +61,12 @@ public class FoodMenuFeedback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu_feedback);
 
+        scrollViewFeedback = (ScrollView)findViewById(R.id.scrollViewFeedback);
+        scrollViewFeedback.setVisibility(View.GONE);
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading ...");
+        progressDialog.setMessage("Your Feedback is Valuable to us");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
 
@@ -73,11 +85,14 @@ public class FoodMenuFeedback extends AppCompatActivity {
         buttonNext = (Button) findViewById(R.id.buttonNext);
         buttonPrevious = (Button) findViewById(R.id.buttonPrevious);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+
         buttonPrevious.setEnabled(false);
 
         setTitle(MealTime);
         dishList = new ArrayList<>();
-        dishRatingList = new ArrayList<>();
+       // dishRatingList = new ArrayList<>();
 
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Menu/" + CurDate + "/" + MealTime + "/");
 
@@ -112,6 +127,7 @@ public class FoodMenuFeedback extends AppCompatActivity {
     private void displayItemOnView(Dish d) {
 
         // Load the Layout or dismiss the progress bar
+        scrollViewFeedback.setVisibility(View.VISIBLE);
         progressDialog.dismiss();
 
         // This sets the data for the 1st Time
@@ -155,7 +171,7 @@ public class FoodMenuFeedback extends AppCompatActivity {
                     if ((size-counter) == 0)
                     {
                         // Send data to server and exit the activity
-                        DatabaseReference databaseReferenceSendRating = FirebaseDatabase.getInstance().getReference("Feedback/"+CurDate+"/"+MealTime+"/");
+                     /*   DatabaseReference databaseReferenceSendRating = FirebaseDatabase.getInstance().getReference("Feedback/"+CurDate+"/"+MealTime+"/");
                         String uploadID;
 
                         for (DishRating dishRating : dishRatingList)
@@ -163,6 +179,7 @@ public class FoodMenuFeedback extends AppCompatActivity {
                              uploadID = databaseReferenceSendRating.push().getKey();
                              databaseReferenceSendRating.child(uploadID).setValue(dishRating);
                          }
+                         */
                         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                         startActivity(intent);
                     }
@@ -171,7 +188,26 @@ public class FoodMenuFeedback extends AppCompatActivity {
                         // continue the basic operations
 
                         // Add data to list
-                        dishRatingList.add(counter, new DishRating(name, imageURl, feedback, rating));
+
+                        /* Lets Modify it
+                        *
+                        * sendToServer(name->feedback and rating)
+                        *
+                        * sendToServer(String Name,String Feeback,String Rating)
+                        * {
+                        *   databaseref.child(Name).child(UserID).setValue(object->Feedback,Rating);
+                        *
+                        *
+                        * }
+                        *
+                        * */
+
+                        NewDishRating newDishRating = new NewDishRating(rating,feedback);
+
+                        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Feedback/"+CurDate+"/"+MealTime+"/");
+                        mDatabaseReference.child(name).child(firebaseUser.getUid()).setValue(newDishRating);
+
+                        //dishRatingList.add(counter, new DishRating(name, imageURl, feedback, rating));
 
                         // Clear layout
                         editTextAdditionalFeedback.clearComposingText();
@@ -218,7 +254,9 @@ public class FoodMenuFeedback extends AppCompatActivity {
                     buttonPrevious.setEnabled(false);
                 }
                 // This will remove the value from the rating
-                dishRatingList.remove(counter);
+
+                /*dishRatingList.remove(counter);*/
+
                 // This will decrease the counter
                 counter --;
                 // This will display old layout on screen
@@ -230,6 +268,7 @@ public class FoodMenuFeedback extends AppCompatActivity {
 
             }// end of onClick
         });// end of View.onClickListener
+
 
 
 
