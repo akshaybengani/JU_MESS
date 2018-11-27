@@ -47,12 +47,6 @@ public class HomeFragment extends Fragment implements  View.OnClickListener{
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-//        java.util.Date c = Calendar.getInstance().getTime();
-//        //System.out.println("Current time => " + c);
-//        SimpleDateFormat df = new SimpleDateFormat("ddMMyyyy");
-//        String formattedDate = df.format(c);
-//        Log.d("Target2",formattedDate);
-
         my_day = mDay;
         my_month = mMonth+1;
         my_year = mYear;

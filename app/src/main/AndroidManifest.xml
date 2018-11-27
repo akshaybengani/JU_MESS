@@ -25,7 +25,8 @@
             android:name=".FoodMenuFeedback"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignUpUserInfo"></activity>
+        <activity android:name=".SignUpUserInfo" />
+        <activity android:name=".MealTimeAnalytics"></activity>
     </application>
 
 </manifest>
