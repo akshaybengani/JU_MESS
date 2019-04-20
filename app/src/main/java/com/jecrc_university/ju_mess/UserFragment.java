@@ -74,7 +74,8 @@ public class UserFragment extends Fragment {
         myUserDataList = new ArrayList<>();
 
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference("/Users/");
+        databaseReference = FirebaseDatabase.getInstance().
+                getReference("/Users/");
 
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading ...");
@@ -89,13 +90,13 @@ public class UserFragment extends Fragment {
                 {
                     if (Objects.equals(dataSnapshot1.getKey(), userId))
                     {
-                        MyUserData myUserData = dataSnapshot1.getValue(MyUserData.class);
+                        MyUserData myUserData = dataSnapshot1.getValue
+                                (MyUserData.class);
                         myUserDataList.add(myUserData);
                     }
                 }
                 onResponseRecieved();
              }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 onResponseRecieved();
@@ -122,14 +123,14 @@ public class UserFragment extends Fragment {
 
     private void onResponseRecieved() {
 
-        if (myUserDataList.isEmpty())
-        {
-            Toast.makeText(getContext(),"Something went wrong Please try again",Toast.LENGTH_SHORT).show();
+        if (myUserDataList.isEmpty()) {
+            Toast.makeText(getContext(),
+                    "Something went wrong Please try again"
+                    ,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getContext(),MainActivity.class);
             startActivity(intent);
         }
         else {
-
             fullname = myUserDataList.get(0).getFullName();
             contactNo = myUserDataList.get(0).getContactNo();
             registrationNo = myUserDataList.get(0).getRegistrationNo();
@@ -147,9 +148,7 @@ public class UserFragment extends Fragment {
 
             progressDialog.dismiss();
             scrollViewUser.setVisibility(View.VISIBLE);
-
         }
-
     }
 
 }

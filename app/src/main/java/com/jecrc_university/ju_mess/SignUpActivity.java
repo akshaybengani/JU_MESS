@@ -65,48 +65,44 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void letMeSignUp() {
         progressDialog.show();
-
         email = editTextEmail.getText().toString().trim();
         password = editTextPassword.getText().toString().trim();
         reEnterPassword = editTextReEnterPassword.getText().toString().trim();
 
         if (dataValidation())
         {
-
             firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "createUserWithEmail:success");
-                                progressDialog.dismiss();
-                                Intent intent = new Intent(SignUpActivity.this,SignUpUserInfo.class);
-                                startActivity(intent);
-                                finish();
+                        if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("TAG", "createUserWithEmail:success");
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(SignUpActivity.this,SignUpUserInfo.class);
+                        startActivity(intent);
+                        finish();
 
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                                progressDialog.dismiss();
-                                Toast.makeText(SignUpActivity.this, "Sign Up failed.", Toast.LENGTH_SHORT).show();
-                            }
-
-                            // ...
+                        } else {
+                         // If sign in fails, display a message to the user.
+                        Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                        progressDialog.dismiss();
+                        Toast.makeText(SignUpActivity.this, "Sign Up failed.",
+                                Toast.LENGTH_SHORT).show();
+                        }
                         }
                     });
-
         }
         else {
             progressDialog.dismiss();
-            Toast.makeText(SignUpActivity.this,"Please Enter Valid Details",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this,"Please Enter Valid Details",
+                    Toast.LENGTH_SHORT).show();
         }
-
-
     }
-
     private boolean dataValidation() {
-        return (email.contains("@") && email.contains(".")) && (password.length() > 6 && reEnterPassword.length() > 6) && password.equals(reEnterPassword);
+        return (email.contains("@") && email.contains("."))
+                && (password.length() > 6 && reEnterPassword.length() > 6)
+                && password.equals(reEnterPassword);
     }
 
 

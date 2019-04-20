@@ -5,8 +5,19 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserFragment">
-
     <!-- TODO: Update blank fragment layout -->
+
+    <FrameLayout
+        android:id="@+id/tryagainuser"
+        android:background=""
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <ImageView
+            android:layout_width=""
+            android:layout_height="" />
+        
+    </FrameLayout>
 
     <ScrollView
         android:id="@+id/scrollviewUser"

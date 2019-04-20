@@ -34,10 +34,7 @@ import java.util.List;
 
 public class FoodMenuFeedback extends AppCompatActivity {
 
-    // RecyclerView recyclerView;
-    // DishAdapter adapter;
     List<Dish> dishList;
-    //List<DishRating> dishRatingList;
     ImageView imageViewDishImage;
     TextView textViewDishName;
     String name, imageURl;
@@ -53,7 +50,6 @@ public class FoodMenuFeedback extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-
     ProgressDialog progressDialog;
 
     @Override
@@ -61,7 +57,8 @@ public class FoodMenuFeedback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu_feedback);
 
-        scrollViewFeedback = (ScrollView)findViewById(R.id.scrollViewFeedback);
+        scrollViewFeedback = (ScrollView)findViewById
+                (R.id.scrollViewFeedback);
         scrollViewFeedback.setVisibility(View.GONE);
 
         progressDialog = new ProgressDialog(this);
@@ -81,7 +78,8 @@ public class FoodMenuFeedback extends AppCompatActivity {
         imageViewDishImage = (ImageView) findViewById(R.id.imageView1);
         textViewDishName = (TextView) findViewById(R.id.textview1);
         smileRating = (SmileRating) findViewById(R.id.smileTaste);
-        editTextAdditionalFeedback = (EditText) findViewById(R.id.editTextAddtionalFeedback);
+        editTextAdditionalFeedback = (EditText) findViewById(
+                R.id.editTextAddtionalFeedback);
         buttonNext = (Button) findViewById(R.id.buttonNext);
         buttonPrevious = (Button) findViewById(R.id.buttonPrevious);
 
@@ -94,7 +92,9 @@ public class FoodMenuFeedback extends AppCompatActivity {
         dishList = new ArrayList<>();
        // dishRatingList = new ArrayList<>();
 
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Menu/" + CurDate + "/" + MealTime + "/");
+        final DatabaseReference databaseReference =
+                FirebaseDatabase.getInstance().getReference
+                        ("Menu/" + CurDate + "/" + MealTime + "/");
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -102,35 +102,26 @@ public class FoodMenuFeedback extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
+                for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()) {
                         Dish dish = dishSnapshot.getValue(Dish.class);
                         dishList.add(dish);
                     }
                     Log.d("I call single time", "I am  here");
                     Dish d = dishList.get(counter);
                     size = dishList.size();
-
-
                     Log.d("MySizeOfArray","is "+size);
                     displayItemOnView(d);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-
     }// onCreate Ends here
 
-    private void displayItemOnView(Dish d) {
-
-        // Load the Layout or dismiss the progress bar
+   private void displayItemOnView(Dish d) {
         scrollViewFeedback.setVisibility(View.VISIBLE);
         progressDialog.dismiss();
-
-        // This sets the data for the 1st Time
         name = d.getmName();
         imageURl = d.getmImageUrl();
         textViewDishName.setText(name);
@@ -140,112 +131,53 @@ public class FoodMenuFeedback extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-
-                // Get data from Rating and Feedback
                 feedback = editTextAdditionalFeedback.getText().toString();
                 rating = smileRating.getRating();
-
-//                smileRating.setOnRatingSelectedListener(new SmileRating.OnRatingSelectedListener() {
-//                    @Override
-//                    public void onRatingSelected(int level, boolean reselected) {
-//                        rating = level;
-//                        Log.d("myRating",""+rating);
-//                    }
-//                });// end of onRatingSelected
-
                 Log.d("myRating","is "+rating);
-
                 if (rating == 0) {
-                    // Check for Empty Rating
-//                    new AlertDialog.Builder(getApplicationContext())
-//                            .setMessage("Please give the rating")
-//                            .show();
-
+                    // check for empty rating
                 } else {
                     // Executes when rating exists
-                    if ((size-counter) == 1)
-                    {
+                    if ((size-counter) == 1) {
                         // Set the button to submit text
                         buttonNext.setText("Submit");
                     }
-                    if ((size-counter) == 0)
-                    {
-                        // Send data to server and exit the activity
-                     /*   DatabaseReference databaseReferenceSendRating = FirebaseDatabase.getInstance().getReference("Feedback/"+CurDate+"/"+MealTime+"/");
-                        String uploadID;
-
-                        for (DishRating dishRating : dishRatingList)
-                         {
-                             uploadID = databaseReferenceSendRating.push().getKey();
-                             databaseReferenceSendRating.child(uploadID).setValue(dishRating);
-                         }
-                         */
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    if ((size-counter) == 0) {
+                        Intent intent = new Intent(getApplicationContext(),
+                                        MainActivity.class);
                         startActivity(intent);
                     }
-                    if (counter <= size)
-                    {
-                        // continue the basic operations
+                    if (counter <= size) {
+                        NewDishRating newDishRating = new NewDishRating
+                                (rating,feedback);
+                        DatabaseReference mDatabaseReference =
+                                FirebaseDatabase.getInstance().getReference
+                                ("Feedback/"+CurDate+"/"+MealTime+"/");
+                        mDatabaseReference.child(name).child(firebaseUser.getUid())
+                                .setValue(newDishRating);
 
-                        // Add data to list
-
-                        /* Lets Modify it
-                        *
-                        * sendToServer(name->feedback and rating)
-                        *
-                        * sendToServer(String Name,String Feeback,String Rating)
-                        * {
-                        *   databaseref.child(Name).child(UserID).setValue(object->Feedback,Rating);
-                        *
-                        *
-                        * }
-                        *
-                        * */
-
-                        NewDishRating newDishRating = new NewDishRating(rating,feedback);
-
-                        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference("Feedback/"+CurDate+"/"+MealTime+"/");
-                        mDatabaseReference.child(name).child(firebaseUser.getUid()).setValue(newDishRating);
-
-                        //dishRatingList.add(counter, new DishRating(name, imageURl, feedback, rating));
-
-                        // Clear layout
                         editTextAdditionalFeedback.clearComposingText();
                         smileRating.setSelectedSmile(BaseRating.NONE);
-
-                        // Increase value of counter
                         counter++;
-
-                        try
-                        {
-                            // Take data from list and set to the layout
+                        try {
                             name = dishList.get(counter).getmName();
                             imageURl = dishList.get(counter).getmImageUrl();
                             textViewDishName.setText(name);
                             Picasso.get().load(imageURl).into(imageViewDishImage);
-
                         }
-                        catch (Exception e)
-                        {
+                        catch (Exception e) {
                             Log.d("Exception",e.getMessage());
                         }
-
-
                         if (counter > 0)
-                        {
                             buttonPrevious.setEnabled(true);
-                        }
                     }
-
-                } // end of else
+               } // end of else
             }// end of onclick
         }); // end of View.onClickListener
-
-        buttonPrevious.setOnClickListener(new View.OnClickListener() {
+           buttonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if ((size-counter) == 1)
+               if ((size-counter) == 1)
                 {
                     buttonNext.setText("Next");
                 }
@@ -253,26 +185,13 @@ public class FoodMenuFeedback extends AppCompatActivity {
                 {
                     buttonPrevious.setEnabled(false);
                 }
-                // This will remove the value from the rating
-
-                /*dishRatingList.remove(counter);*/
-
-                // This will decrease the counter
                 counter --;
-                // This will display old layout on screen
                 name = dishList.get(counter).getmName();
                 imageURl = dishList.get(counter).getmImageUrl();
                 textViewDishName.setText(name);
                 Picasso.get().load(imageURl).into(imageViewDishImage);
-
-
             }// end of onClick
         });// end of View.onClickListener
 
-
-
-
     }// end of Display Function
-
-
 }

@@ -49,11 +49,12 @@ public class FoodMenu extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         dishList = new ArrayList<>();
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Menu/"+CurDate+"/"+MealTime+"/");
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference("Menu/"+CurDate+"/"+MealTime+"/");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
                 if (dataSnapshot.exists())
                 {
                     for (DataSnapshot dishSnapshot : dataSnapshot.getChildren()){
@@ -62,27 +63,11 @@ public class FoodMenu extends AppCompatActivity {
                     }
                     adapter = new DishAdapter(FoodMenu.this,dishList);
                     recyclerView.setAdapter(adapter);
-
                 }
-
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-
             }
         });
-
-
-
     }
-
-
-
-
-
 }

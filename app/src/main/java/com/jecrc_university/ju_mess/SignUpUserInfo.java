@@ -67,26 +67,29 @@ public class SignUpUserInfo extends AppCompatActivity {
 
     private void addUserInfo() {
         progressDialog.show();
-
         registrationNo = editTextRegistrationNo.getText().toString().trim().toUpperCase();
         contactNo = editTextContactNo.getText().toString().trim();
         fullName = editTextFullName.getText().toString().trim();
-
         if(dataValidation())
         {
-            radioButtonHostler = (RadioButton)findViewById(radioGroupHostler.getCheckedRadioButtonId());
+            radioButtonHostler = (RadioButton)findViewById
+                    (radioGroupHostler.getCheckedRadioButtonId());
             hostlerStatus = radioButtonHostler.getText().toString();
-            radioButtonGender = (RadioButton)findViewById(radioGroupGender.getCheckedRadioButtonId());
+            radioButtonGender = (RadioButton)findViewById
+                    (radioGroupGender.getCheckedRadioButtonId());
             genderStatus = radioButtonGender.getText().toString();
+            MyUserData myUserData = new MyUserData(hostlerStatus,
+                    registrationNo,contactNo,genderStatus,fullName);
 
-            MyUserData myUserData = new MyUserData(hostlerStatus,registrationNo,contactNo,genderStatus,fullName);
-
-            databaseReference.child(userId).setValue(myUserData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            databaseReference.child(userId).setValue(myUserData)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     progressDialog.dismiss();
-                    Toast.makeText(SignUpUserInfo.this,"Thanks for the registration",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignUpUserInfo.this,MainActivity.class);
+                    Toast.makeText(SignUpUserInfo.this,
+                            "Thanks for the registration",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpUserInfo.this,
+                            MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -94,20 +97,24 @@ public class SignUpUserInfo extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast.makeText(SignUpUserInfo.this,"Something Went Wrong Please try again",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpUserInfo.this,
+                            "Something Went Wrong Please try again",
+                            Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
         else {
             progressDialog.dismiss();
-            Toast.makeText(SignUpUserInfo.this, "Kindly enter valid information and select options above", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpUserInfo.this,
+                    "Kindly enter valid information and select options above",
+                    Toast.LENGTH_SHORT).show();
         }
-
     }
-
     private boolean dataValidation() {
-        return (radioGroupHostler.getCheckedRadioButtonId() != -1) && (radioGroupGender.getCheckedRadioButtonId() != -1) && registrationNo.length() > 8 && contactNo.length() == 10  && fullName.length() > 3 ;
+        return (radioGroupHostler.getCheckedRadioButtonId() != -1)
+                && (radioGroupGender.getCheckedRadioButtonId() != -1)
+                && registrationNo.length() > 8 && contactNo.length() == 10
+                && fullName.length() > 3 ;
     }
 
 

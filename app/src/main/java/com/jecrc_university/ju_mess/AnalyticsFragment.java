@@ -33,27 +33,29 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AnalyticsFragment extends Fragment implements View.OnClickListener {
+public class AnalyticsFragment extends Fragment
+        implements View.OnClickListener {
 
     private int my_day,my_month,my_year;
     private Button buttondatepicker;
     private int mYear, mMonth, mDay;
-    private String mySelCurDate;
 
-    private BarChart barChartBreakfast,barChartLunch,barChartSnacks,barChartDinner;
+   // private String mySelCurDate;
 
+        private BarChart barChartBreakfast,barChartLunch, barChartSnacks,barChartDinner;
 
     public AnalyticsFragment() {
         // Required empty public constructor
     }
 
-
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_analytics, container, false);
+        View view= inflater.inflate(R.layout.fragment_analytics,
+                container, false);
         // TODO OnCreate Starts Here
 
         // Get Current Date
@@ -67,9 +69,10 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         my_year = mYear;
 
         // TODO Current Date
-        mySelCurDate = ""+my_day+""+my_month+""+my_year;
+        //mySelCurDate = ""+my_day+""+my_month+""+my_year;
 
         buttondatepicker = (Button)view.findViewById(R.id.buttonDatePickerAnalytics);
+
         barChartBreakfast = (BarChart)view.findViewById(R.id.bar_chartBreakfast);
         barChartLunch = (BarChart)view.findViewById(R.id.bar_chartLunch);
         barChartSnacks = (BarChart)view.findViewById(R.id.bar_chartSnacks);
@@ -77,7 +80,8 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
 
 
 
-        buttondatepicker.setText(""+mDay + "-" + (mMonth + 1) + "-" + mYear);
+        buttondatepicker.setText(""+mDay + "-" + (mMonth + 1) +
+                "-" + mYear);
 
 
         buttondatepicker.setOnClickListener(this);
@@ -95,7 +99,8 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
         BarEntry.add(new BarEntry(5,1));
         BarEntry.add(new BarEntry(6,3));
 
-        BarDataSet dataSet = new BarDataSet(BarEntry,"Projects");
+        BarDataSet dataSet = new BarDataSet(BarEntry,
+                "Dish Analytics");
 
         BarData barData = new BarData(dataSet);
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -147,42 +152,50 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
                     }, mYear, mMonth, mDay);
             datePickerDialog.show();
 
-            // Customize date in my format
-            CusDate cusDate = new CusDate(my_day, my_month, my_year);
-            String st_day = cusDate.getDay();
-            String st_month = cusDate.getMonth();
-            String st_year = cusDate.getYear();
 
-            mySelCurDate = "" + st_day + "" + st_month + "" + st_year;
-
-            Log.d("Button Day", "" + st_day);
-            Log.d("Button Month", "" + st_month);
-            Log.d("Button Year", "" + st_year);
 
         }
+
+        // Customize date in my format
+        CusDate cusDate = new CusDate(my_day, my_month, my_year);
+        String st_day = cusDate.getDay();
+        String st_month = cusDate.getMonth();
+        String st_year = cusDate.getYear();
+
+        Log.d("Button Day", "" + st_day);
+        Log.d("Button Month", "" + st_month);
+        Log.d("Button Year", "" + st_year);
 
         if (v == barChartBreakfast)
         {
             intent.putExtra("mealName","Breakfast");
-            intent.putExtra("curDate",mySelCurDate);
+            intent.putExtra("Day",st_day);
+            intent.putExtra("Month",st_month);
+            intent.putExtra("Year",st_year);
             startActivity(intent);
         }
         if (v == barChartLunch)
         {
             intent.putExtra("mealName","Lunch");
-            intent.putExtra("curDate",mySelCurDate);
+            intent.putExtra("Day",st_day);
+            intent.putExtra("Month",st_month);
+            intent.putExtra("Year",st_year);
             startActivity(intent);
         }
         if (v == barChartSnacks)
         {
             intent.putExtra("mealName","Snacks");
-            intent.putExtra("curDate",mySelCurDate);
+            intent.putExtra("Day",st_day);
+            intent.putExtra("Month",st_month);
+            intent.putExtra("Year",st_year);
             startActivity(intent);
         }
         if (v == barChartDinner)
         {
             intent.putExtra("mealName","Dinner");
-            intent.putExtra("curDate",mySelCurDate);
+            intent.putExtra("Day",st_day);
+            intent.putExtra("Month",st_month);
+            intent.putExtra("Year",st_year);
             startActivity(intent);
         }
 
@@ -195,69 +208,3 @@ public class AnalyticsFragment extends Fragment implements View.OnClickListener 
 
 
 
- /*
-        BarChart barChart1 = (BarChart)view.findViewById(R.id.bar_chart1);
-        BarChart barChart2 = (BarChart)view.findViewById(R.id.bar_chart2);
-        BarChart barChart3 = (BarChart)view.findViewById(R.id.bar_chart3);
-        BarChart barChart4 = (BarChart)view.findViewById(R.id.bar_chart4);
-
-        ArrayList<BarEntry> BarEntry = new ArrayList<>();
-        BarEntry.add(new BarEntry(1,5));  // the 1st param is the position and the second is value
-        BarEntry.add(new BarEntry(2,3));
-        BarEntry.add(new BarEntry(3,9));
-        BarEntry.add(new BarEntry(4,8));
-        BarEntry.add(new BarEntry(5,1));
-        BarEntry.add(new BarEntry(6,3));
-
-        BarDataSet dataSet = new BarDataSet(BarEntry,"Projects");
-
-        final ArrayList<String> labels = new ArrayList<>();
-
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-        labels.add("July");
-
-        XAxis xval = barChart1.getXAxis();
-        xval.setDrawLabels(true);
-        xval.setValueFormatter(new AxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return  labels.get((int) value-1);
-            }
-
-            @Override
-            public int getDecimalDigits() {
-                return 0;
-            }
-        });
-        xval.setDrawGridLines(false);
-        xval.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        // finish
-
-
-        BarData barData = new BarData(dataSet);
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-        dataSet.setBarShadowColor(Color.BLACK);
-
-
-        barChart1.setData(barData);
-        barChart1.setDescription("No of Projects");
-        barChart1.animateXY(1400,1400);
-
-        barChart2.setData(barData);
-        barChart2.setDescription("No of Projects");
-        barChart2.animateXY(1400,1400);
-
-        barChart3.setData(barData);
-        barChart3.setDescription("No of Projects");
-        barChart3.animateXY(1400,1400);
-
-        barChart4.setData(barData);
-        barChart4.setDescription("No of Projects");
-        barChart4.animateXY(1400,1400);
-*/

@@ -25,7 +25,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private Button btnLogin;
     private EditText editTextEmail, editTextPassword;
-    private String email="", password="";
+    private String email = "", password = "";
     private FirebaseAuth firebaseAuth;
     private TextView textViewSignUp;
     private ProgressDialog progressDialog;
@@ -39,7 +39,7 @@ public class LogInActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.buttonLogIn);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignUp = (TextView)findViewById(R.id.textViewSignUp);
+        textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
         firebaseAuth = FirebaseAuth.getInstance();
 
         progressDialog = new ProgressDialog(LogInActivity.this);
@@ -58,7 +58,7 @@ public class LogInActivity extends AppCompatActivity {
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogInActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,41 +68,34 @@ public class LogInActivity extends AppCompatActivity {
 
     private void letMeLogIn() {
         progressDialog.show();
-
         email = editTextEmail.getText().toString().trim();
         password = editTextPassword.getText().toString().trim();
 
         if (dataValidation()) {
-
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("TAG", "signInWithEmail:success");
-                                progressDialog.dismiss();
-                                Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("TAG", "signInWithEmail:failure", task.getException());
-                                progressDialog.dismiss();
-                                Toast.makeText(LogInActivity.this, "Authentication failed try Again",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-
-                            // ...
-                        }
-                    });
-
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d("TAG", "signInWithEmail:success");
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("TAG", "signInWithEmail:failure", task.getException());
+                        progressDialog.dismiss();
+                        Toast.makeText(LogInActivity.this, "Authentication failed try Again",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         } else {
             progressDialog.dismiss();
             Toast.makeText(LogInActivity.this, "Kindly enter valid information", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private boolean dataValidation() {

@@ -77,24 +77,25 @@ public class HomeFragment extends Fragment implements  View.OnClickListener{
         if (v == buttondatepicker)
         {
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+            DatePickerDialog datePickerDialog = new
+                    DatePickerDialog(getContext(),
                     new DatePickerDialog.OnDateSetListener() {
 
-                        @Override
-                        public void onDateSet(DatePicker view, int year,
-                                              int monthOfYear, int dayOfMonth) {
-
-                            my_day = dayOfMonth;
-                            my_month = monthOfYear+1;
-                            my_year = year;
-                            buttondatepicker.setText(""+dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
-
-
-                        }
-                    }, mYear, mMonth, mDay);
+               @Override
+               public void onDateSet(DatePicker view, int year,
+                   int monthOfYear, int dayOfMonth)
+               {
+               my_day = dayOfMonth;
+               my_month = monthOfYear+1;
+               my_year = year;
+               buttondatepicker.setText(""+dayOfMonth + "-" +
+                       (monthOfYear + 1) + "-" + year);
+                }
+              }, mYear, mMonth, mDay);
             datePickerDialog.show();
 
         }
+
         // Customize date in my format
         CusDate cusDate = new CusDate(my_day,my_month,my_year);
         String st_day = cusDate.getDay();
